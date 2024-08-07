@@ -1,29 +1,3 @@
-/*-------------------------------- Constants --------------------------------*/
-
-/*-------------------------------- Variables --------------------------------*/
-
-/*------------------------ Cached Element References ------------------------*/
-
-/*-------------------------------- Functions --------------------------------*/
-
-/*----------------------------- Event Listeners -----------------------------*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
 # Pseudocode for the Snowboard-Themed Memory Card Game:
 
 1. Define any variables used to track the state of the game:
@@ -53,5 +27,4 @@
 5. Compare the flipped cards and check for a match
 
 6. Check if the game is win/lose, render a win/lose message to the player.
-*/
 
