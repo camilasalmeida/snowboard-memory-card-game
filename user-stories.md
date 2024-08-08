@@ -1,6 +1,6 @@
 # User Stories for the Snowboard-Themed Memory Card Game:
 
-* ***As an user***, to ensure I’m in the right place, I want to open the landing page and see:
+ * ***As an user***, to ensure I’m in the right place, I want to open the landing page and see:
 
     * A group of 16 cards face down in the middle of the page, so I know the game is set up and ready for me to start.
 

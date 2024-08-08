@@ -6,11 +6,9 @@ const cards = [];
 let matchedCards = [];
 let flippedCard1 = [];
 let flippedCard2 = [];
-let timerInit = 0;
-let timerLeft = 240; // 4 minutes in second
+let timeLeft = 0;
+let timeLimit = 240; // 4 minutes in second
 let timerInterval;
-
-let msg;
 
 /*------------------------ Cached Element References ------------------------*/
 
@@ -18,75 +16,118 @@ const cardsElement = document.querySelectorAll('.cards');
 const restartBtn = document.querySelector('#restart');
 const resultDisplayEl = document.querySelector('#result-display');
 const boardElement = document.querySelector('.board');
+const timerElement = document.querySelector('#timer');
+
 // console.log({
 //     cardsElement,
-//     restartB
+//     restartBtn,
 //     resultDisplayEl,
-//     boardElement
+//     boardElement,
+//     timerElement
 // })
 
 /*-------------------------------- Functions --------------------------------*/
 
 function init() {
-    timeLeft = timeLimit // 💡💡💡 timer has to be the opposite, cause we are counting down time, the time left.
+    timeLeft = timeLimit // timer has to be the opposite, cause we are counting down time, the time left.
     shuffleCards()
+    //All cards must be face down
     //console.log('Init function is working!');
-    
 }
 init();
-//All cards must be face down
 
 //**------------------------SHUFFLE CARDS FUNCTIONS----------------------**
 function shuffleCards() {
-    let cardsArray = Array.from(cardsElement) // Convert NodeList to an array.
+    let cardsArray = Array.from(cardsElement) // Convert NodeList to an array. Array.from(cardsElement) is used to convert cardsElement into an array, This method creates a new, shallow-copied Array instance from an array-like or iterable object. //Get the cards and put them into an array.
     //console.log(cardsArray);
-    shuffleArray(cardsArray)
+    shuffleArray(cardsArray) 
     cardsArray.forEach(card => {
     boardElement.appendChild(card);
-})};
-shuffleCards();
-//console.log('Shuffle cards is working', shuffleCards);
+})}
+//console.log('Shuffle card is working', shuffleCards);
+
+/*
+    for ( let i = 0; i < cardsArray.length; i++) {
+        let node = cardsArray[i] // Get the card element at index i, 
+        node.appendChild(cardsArray[i]) // Append each shuffled card back to the parent container
+*/
+
+//  1. I put the queryselectorAll.cards into an Array.
+//   2. We called the function shuffleArray to shuffle the cards we took from the queryselector, that we put into an array.lol 
 
 function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {      // Go through the array from the last element to the first element
-        const j = Math.floor(Math.random() * (i + 1)); 
-        [array[i], array[j]] = [array[j], array[i]];  // Swap the elements at index i and index j
-    }
-}
-//  1. I put the queryselectorAll.cards into an Array.
-//  2. We called the function shuffleArray, to shuffle the cards we took from the queryselector, that we put into an array, now we're shuffling it.lol 
-//**---------------------------------------------------------------------**
+    for (let i = array.length - 1; i > 0; i--) { // Go through the array from the last element to the first element
+        const j = Math.floor(Math.random() * (i + 1)); // Pick a random index from 0 to i
+        [array[i], array[j]] = [array[j], array[i]]; // // Swap the elements at index i and index j
+    }}
+//---------------------------------------------------------------------------**
 
-//**------------------------SETTING TIMER FUNCTIONS----------------------**
+//**------------------------SETTING THE TIMER FUNCTIONS----------------------**
 
 function setTimerInit() {
-    console.log('Set the timer!');
+    timeLeft = timeLimit 
+    updateDisplay()                                   // Show the starting time
+    clearInterval(timerInterval);
+    timerInterval = setInterval(updateTime, 1000);   // Update the timer every second
 }
-setTimerInit();
+//-----------------------------
+
+// Function to update the timer each second
+function updateTime() {
+    timeLeft--;                             // 💡 reduce the time left by 1 second
+    //console.log('Hey its working, timeLeft reduced by one second.');
+    if (timeLeft <= 0) {
+        clearInterval(timerInterval);      // If the timer reached 0, it will clear
+        timeLeft = 0;
+        resultDisplayEl.textContent = `You lose! Do you want to try again?,Timer left: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }}
+
+//----------------------------
+function updateDisplay() {
+     // Calculate the minutes and seconds from timeLeft
+    const minutes = Math.floor(timeLeft / 60);   // Calculate minutes, this is a typeof Number
+    //console.log(typeof minutes);               // number
+    const seconds = timeLeft % 60;                // calculate seconds
+    //console.log(typeof seconds);
+    // Convert minutes and seconds to two-digit strings
+    const minutesStr = String(minutes).padStart(2, '0'); // `String(minutes)` function converts this number into a string
+    const secondsStr = String(seconds).padStart(2, '0'); //Pad the string to ensure it's at least 2 characters, now it's "05"
+    //console.log(minutesStr, 'Converting into a string');
+    //console.log(secondsStr, 'And padding the string to ensure its at least 2 characters.')
+     // "5".padStart(2, '0') checks if the length of the string is less than 2. Since "5" has only 1 character, it adds a '0' at the beginning. The result is "05".
+// or timerElement.textContent = `Timer left: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+    // Create the time display string
+    const timerDisplay = 'Timer left: ' + minutesStr + ':' + secondsStr;
+    //console.log('Testing', timerDisplay);
+
+    // Update the text content of the timer element
+    timerElement.textContent = timerDisplay; // 💡💡💡DOM
+}
+ setTimerInit();
 
 
-
-
-
-
-
-//**---------------------------------------------------------------------**
+//-----------------------------------------------------------------------**
 function flippedCard(event) {
 //console.log(event.target);
     flippedCard1 = event.target.id;
 };
+
 // break, 
 // matchedCards.push(__);
 // add or create an element to the card flipped. ???
 
 
 function checkMatch() {
-    console.log('Is it a match?');
+    //console.log('Is it a match?');
 }
 checkMatch();
 
+//render...
+
+
 function reset() {
-    console.log('Reset the game!');
+    //console.log('Reset the game!');
 }
 reset();
 
