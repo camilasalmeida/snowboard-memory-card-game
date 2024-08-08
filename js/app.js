@@ -1,12 +1,14 @@
 /*-------------------------------- Constants --------------------------------*/
 const cards = [];
-const matchedCards = [];
 
 /*-------------------------------- Variables --------------------------------*/
+
+let matchedCards = [];
 let flippedCard1 = [];
 let flippedCard2 = [];
 let timerInit = 0;
 let timerLeft = 240; // 4 minutes in second
+let timerInterval;
 
 let msg;
 
@@ -15,27 +17,47 @@ let msg;
 const cardsElement = document.querySelectorAll('.cards');
 const restartBtn = document.querySelector('#restart');
 const resultDisplayEl = document.querySelector('#result-display');
+const boardElement = document.querySelector('.board');
 // console.log({
 //     cardsElement,
 //     restartBtn,
 //     resultDisplayEl,
+//     boardElement
 // })
 
 /*-------------------------------- Functions --------------------------------*/
 
 function init() {
-    console.log('Starting the game');
+    timeLeft = timeLimit // 💡💡💡 timer has to be the opposite, cause we are counting down time, the time left.
+    shuffleCards()
+    //console.log('Init function is working!');
+    
 }
 init();
-//timer has to be set to 0, setTimerInit()
-//shuffle()
 //All cards must be face down
 
-
+//**------------------------SHUFFLE CARDS FUNCTIONS----------------------**
 function shuffleCards() {
-    console.log('Shuffle the cards!')
-}
+    let cardsArray = Array.from(cardsElement) // Convert NodeList to an array.
+    //console.log(cardsArray);
+    shuffleArray(cardsArray)
+    cardsArray.forEach(card => {
+    boardElement.appendChild(card);
+})};
 shuffleCards();
+//console.log('Shuffle cards is working', shuffleCards);
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {      // Go through the array from the last element to the first element
+        const j = Math.floor(Math.random() * (i + 1)); 
+        [array[i], array[j]] = [array[j], array[i]];  // Swap the elements at index i and index j
+    }
+}
+//  1. I put the queryselectorAll.cards into an Array.
+//  2. We called the function shuffleArray, to shuffle the cards we took from the queryselector, that we put into an array, now we're shuffling it.lol 
+//**---------------------------------------------------------------------**
+
+//**------------------------SETTING TIMER FUNCTIONS----------------------**
 
 
 function setTimerInit() {
@@ -44,9 +66,16 @@ function setTimerInit() {
 setTimerInit();
 
 
+
+
+
+
+
+//**---------------------------------------------------------------------**
 function flippedCard(event) {
-console.log(event.target);
-} 
+//console.log(event.target);
+    flippedCard1 = event.target.id;
+};
 // break, 
 // matchedCards.push(__);
 // add or create an element to the card flipped. ???

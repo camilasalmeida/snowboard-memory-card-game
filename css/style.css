@@ -24,7 +24,7 @@ p {
     font-family: 'Russo One', sans-serif;
 }
 .container {
-display: flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -43,18 +43,23 @@ display: flex;
 }
 
 .cards {
-    flex: 1 1 20%; 
-    height: 160px; 
-    background-color: #ffffff; 
-    border: 2px solid #000; 
-    border-radius: 8px; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px; 
-    text-align: center;
-    cursor: pointer; 
-    transition: background-color 0.3s ease; 
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+    position: relative;
+    transform: scale(1);
+    transform-style: preserve-3d;
+    transition: transform .5s; 
+}
+
+.front-face {
+    width: 100px;
+    height: 100px;
+}
+
+.back-face {
+    width: 100px;
+    height: 100px;
 }
 
 .cards:hover {
