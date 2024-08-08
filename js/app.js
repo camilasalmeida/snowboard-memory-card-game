@@ -20,7 +20,7 @@ const resultDisplayEl = document.querySelector('#result-display');
 const boardElement = document.querySelector('.board');
 // console.log({
 //     cardsElement,
-//     restartBtn,
+//     restartB
 //     resultDisplayEl,
 //     boardElement
 // })
@@ -58,7 +58,6 @@ function shuffleArray(array) {
 //**---------------------------------------------------------------------**
 
 //**------------------------SETTING TIMER FUNCTIONS----------------------**
-
 
 function setTimerInit() {
     console.log('Set the timer!');
