@@ -37,7 +37,6 @@ function init() {
     cardsElement.forEach(card => card.classList.remove('flipped', 'matched')); 
 }
 
-
 //**------------------------SHUFFLE CARDS FUNCTIONS----------------------**
 function shuffleCards() {
     let cardsArray = Array.from(cardsElement) // Convert NodeList to an array. Array.from(cardsElement) is used to convert cardsElement into an array, This method creates a new, shallow-copied Array instance from an array-like or iterable object. //Get the cards and put them into an array.
