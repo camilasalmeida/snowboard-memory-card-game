@@ -183,8 +183,31 @@ button.addEventListener("click", () => {
     button.classList.add("fade");
   });
 
+//*-------added snowflake----*
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const snowfall = document.getElementById('snowfall');
+    const numSnowflakes = 50; 
+
+    for (let i = 0; i < numSnowflakes; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.classList.add('snowflake');
+        snowflake.innerText = '❄'; 
+        snowflake.style.left = Math.random() * 100 + 'vw'; 
+        snowflake.style.fontSize = Math.random() * 10 + 10 + 'px'; 
+        snowflake.style.animationDuration = Math.random() * 5 + 5 + 's'; 
+        snowflake.style.animationDelay = Math.random() * 10 + 's'; 
+        snowflake.style.transform = `translateY(${Math.random() * 100}vh)`; 
+        snowflake.style.animationName = 'snowfall';
+        snowflake.style.animationTimingFunction = 'linear';
+        snowfall.appendChild(snowflake);
+    }
+});
 
   
+
+
 /*
 STATE OF THE GAME: 💡💡💡
 WHAT CHANGES DO WE NEED TO KEEP TRACK OF TO KNOW THE CURRENT STATE OF THE GAME?
