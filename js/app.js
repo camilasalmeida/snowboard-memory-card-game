@@ -1,14 +1,16 @@
 /*-------------------------------- Constants --------------------------------*/
-const cards = [];
+//const cards = [];
 
 /*-------------------------------- Variables --------------------------------*/
 
+let flippedCards = [];
 let matchedCards = [];
-let flippedCard1 = [];
-let flippedCard2 = [];
+
 let timeLeft = 0;
 let timeLimit = 240; // 4 minutes in second
 let timerInterval;
+
+let timerStarted = false;
 
 /*------------------------ Cached Element References ------------------------*/
 
@@ -17,40 +19,36 @@ const restartBtn = document.querySelector('#restart');
 const resultDisplayEl = document.querySelector('#result-display');
 const boardElement = document.querySelector('.board');
 const timerElement = document.querySelector('#timer');
+const categoryEl = document.querySelectorAll
 
-// console.log({
-//     cardsElement,
-//     restartBtn,
-//     resultDisplayEl,
-//     boardElement,
-//     timerElement
-// })
+//-----Added
+const button = document.querySelector("#button");
+const icon = document.querySelector("#button > i");
+const audio = document.querySelector("audio");
 
 /*-------------------------------- Functions --------------------------------*/
+init();
 
 function init() {
+    console.log('init');
     timeLeft = timeLimit // timer has to be the opposite, cause we are counting down time, the time left.
     shuffleCards()
-    //All cards must be face down
-    //console.log('Init function is working!');
+    resultDisplayEl.textContent = "Find all the matches!";
+    cardsElement.forEach(card => card.classList.remove('flipped', 'matched')); 
 }
-init();
+
 
 //**------------------------SHUFFLE CARDS FUNCTIONS----------------------**
 function shuffleCards() {
     let cardsArray = Array.from(cardsElement) // Convert NodeList to an array. Array.from(cardsElement) is used to convert cardsElement into an array, This method creates a new, shallow-copied Array instance from an array-like or iterable object. //Get the cards and put them into an array.
     //console.log(cardsArray);
-    shuffleArray(cardsArray) 
+    shuffleArray(cardsArray); 
+    //console.log('Its working');
     cardsArray.forEach(card => {
     boardElement.appendChild(card);
+    //console.log(boardElement);
 })}
 //console.log('Shuffle card is working', shuffleCards);
-
-/*
-    for ( let i = 0; i < cardsArray.length; i++) {
-        let node = cardsArray[i] // Get the card element at index i, 
-        node.appendChild(cardsArray[i]) // Append each shuffled card back to the parent container
-*/
 
 //  1. I put the queryselectorAll.cards into an Array.
 //   2. We called the function shuffleArray to shuffle the cards we took from the queryselector, that we put into an array.lol 
@@ -61,6 +59,31 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]]; // // Swap the elements at index i and index j
     }}
 //---------------------------------------------------------------------------**
+
+//**------------------------FLIPPED CARD FUNCTION----------------------------**
+
+function flippedCard(event){
+    const clickedCard = event.target.closest('.cards');
+    if (!timerStarted){
+        console.log('000');
+    }
+    setTimerInit();
+    timerStarted = true;
+
+    if (flippedCards.length === 2 || clickedCard.classList.contains('flipped')){
+        console.log('exiting flippedCard. Conditions: ', flippedCards.length === 2, clickedCard.classList.contains('flipped'));
+        return;
+    }
+
+    clickedCard.classList.add('flipped');
+    flippedCards.push(clickedCard);
+
+    if (flippedCards.length === 2){
+        setTimeout(checkMatch, 1000);
+    }
+}
+//---------------------------------------------------------------------------**
+
 
 //**------------------------SETTING THE TIMER FUNCTIONS----------------------**
 
@@ -104,33 +127,37 @@ function updateDisplay() {
     // Update the text content of the timer element
     timerElement.textContent = timerDisplay; // 💡💡💡DOM
 }
- setTimerInit();
+//**-------------------------------------------------------------------------------**
 
-
-//-----------------------------------------------------------------------**
-function flippedCard(event) {
-//console.log(event.target);
-    flippedCard1 = event.target.id;
-};
-
-// break, 
-// matchedCards.push(__);
-// add or create an element to the card flipped. ???
-
-
+//**-----------------------------CHECKMATCH FUNCTION--------------------------------**
 function checkMatch() {
     //console.log('Is it a match?');
-}
-checkMatch();
+    const [firstCard, secondCard] = flippedCards;
 
-//render...
+    if (firstCard.querySelector('.front-face').src === secondCard.querySelector('.front-face').src)
+    {
+        firstCard.classList.add('matched');
+        secondCard.classList.add('matched');
+        matchedCards.push(firstCard, secondCard);
+    } else
+    {
+        firstCard.classList.remove('flipped');
+        secondCard.classList.remove('flipped');
+    }
+    flippedCards = [];
+
+    if (matchedCards.length === cardsElement.length)
+    {
+        clearInterval(timerInterval);
+        resultDisplayEl.textContent = "Congratulations, you won the game! Do you want to start again?";
+    }
+}
+//**-------------------------------------------------------------------------------**
 
 
 function reset() {
     //console.log('Reset the game!');
 }
-reset();
-
 
 /*----------------------------- Event Listeners -----------------------------*/
 
@@ -140,6 +167,7 @@ cardsElement.forEach((card) => {      //for each time someone clicks on any of t
 );
 
 restartBtn.addEventListener('click', reset);
+
 
 
 

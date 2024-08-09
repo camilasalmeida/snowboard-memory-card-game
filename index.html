@@ -6,91 +6,98 @@
     <link rel="stylesheet" href="./css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Snowboard Memory Card Game</title>
 </head>
 <body>
 
     <div class="container">
-        <h1>Memory Card Game Instructions</h1>
-        <ol id="instructions">
+        <h1>Memory Card Game
+        </h1>
+        <ol id="instructions">INSTRUCTIONS:
             <li><strong>Goal:</strong> Match all pairs before time runs out.</li>
             <li><strong>Flip Cards:</strong> Click two cards to find a match. If they don’t match, they flip back.</li>
             <li><strong>Win:</strong> Match all pairs within 4 minutes.</li>
             <li><strong>Restart:</strong> Click "Restart" to play again.</li> 
         </ol>
 
-            <p>Enjoy it!</p>
-            <div id="timer">Timer left: 04:00</div>
-            <h2 id="result-display">Message</h2>
+        <p>Enjoy the ride!</p>
+        <div class="timer" id="timer">Timer left: 04:00</div>
+        <h2 class="result-display" id="result-display">Message</h2>
 
-            <section class="board">
-                <div class="cards" id="0" category="board">
-                    <img class ="front-face" src="./css/images/board1.jpg" alt="Board">
-                    <img class ="back-face" src="./css/images/card-back.jpg" alt="Back of the card">
-                </div>
-                <div class="cards" id="1" category="board">
-                    <img class ="front-face" src="./css/images/board2.jpg" alt="Board">
-                    <img class ="back-face" src="./css/images/card-back.jpg" alt="Back of the card">
-                </div>
-                <div class="cards" id="2" category="boots">
-                    <img class ="front-face" src="./css/images/boots1.jpg" alt="Boots">
-                    <img class ="back-face" src="./css/images/card-back.jpg" alt="Back of the card">
-                </div>
-                <div class="cards" id="3" category="boots">
-                    <img class ="front-face" src="./css/images/boots2.jpg" alt="Boots">
-                    <img class ="back-face" src="./css/images/card-back.jpg" alt="Back of the card">
-                </div>
-                <div class="cards" id="4" category="ikon">
-                    <img class ="front-face" src="./css/images/ikon1.jpg" alt="Ikoncard">
-                    <img class ="back-face" src="./css/images/card-back.jpg" alt="Back of the card">
-                </div>
-                <div class="cards" id="5" category="ikon">
-                    <img class ="front-face" src="./css/images/ikon2.jpg" alt="Ikoncard">
-                    <img class ="back-face" src="./css/images/card-back.jpg" alt="Back of the card">
-                </div>
-                <div class="cards" id="6" category="gloves">
-                    <img class ="front-face" src="./css/images/gloves1.jpg" alt="Gloves">
-                    <img class ="back-face" src="./css/images/card-back.jpg" alt="Back of the card">
-                </div>
-                <div class="cards" id="7" category="gloves">
-                    <img class ="front-face" src="./css/images/gloves2.jpg" alt="Gloves">
-                    <img class ="back-face" src="./css/images/card-back.jpg" alt="Back of the card">
-                </div>
-                <div class="cards" id="8" category="goggle">
-                    <img class ="front-face" src="./css/images/goggle.jpg" alt="Goggle">
-                    <img class ="back-face" src="./css/images/card-back.jpg" alt="Back of the card">
-                </div>
-                <div class="cards" id="9" category="goggle">
-                    <img class ="front-face" src="./css/images/goggle2.jpg" alt="Goggle">
-                    <img class ="back-face" src="./css/images/card-back.jpg" alt="Back of the card">
-                </div>
-                <div class="cards" id="10" category="jacket">
-                    <img class ="front-face" src="./css/images/jacket1.jpg" alt="Jacket">
-                    <img class ="back-face" src="./css/images/card-back.jpg" alt="Back of the card">
-                </div>
-                <div class="cards" id="11" category="jacket">
-                    <img class ="front-face" src="./css/images/jacket2.jpg" alt="Jacket">
-                    <img class ="back-face" src="./css/images/card-back.jpg" alt="Back of the card">
-                </div>
-                <div class="cards" id="12" category="gondola">
-                    <img class ="front-face" src="./css/images/gondola1.jpg" alt="Gondola">
-                    <img class ="back-face" src="./css/images/card-back.jpg" alt="Back of the card">
-                </div>
-                <div class="cards" id="13" category="gondola">
-                    <img class ="front-face" src="./css/images/gondola2.jpg" alt="Gondola">
-            <img class ="back-face" src="./css/images/card-back.jpg" alt="Back of the card">
-                </div>
-                <div class="cards" id="14" category="waffle">
-                    <img class ="front-face" src="./css/images/waffle1.jpg" alt="Waffle">
-            <img class ="back-face" src="./css/images/card-back.jpg" alt="Back of the card">
-                </div>
-                <div class="cards" id="15" category="waffle">
-                    <img class ="front-face" src="./css/images/waffle2.jpg" alt="Waffle">
-            <img class ="back-face" src="./css/images/card-back.jpg" alt="Back of the card">
-                </div>
-            </section>
+        <section class="board">
+            <div class="cards" id="0" category="board">
+                <img class = "front-face" src="./css/images/board1.jpg" alt="Board">
+                <img class = "back-face" src="./css/images/cardback.jpg" alt="Back of the card">
+            </div>
+            <div class="cards" id="1" category="board">
+                <img class ="front-face" src="./css/images/board2.jpg" alt="Board">
+                <img class ="back-face" src="./css/images/cardback.jpg" alt="Back of the card">
+            </div>
+            <div class="cards" id="2" category="boots">
+                <img class ="front-face" src="./css/images/boots1.jpg" alt="Boots">
+                <img class ="back-face" src="./css/images/cardback.jpg" alt="Back of the card">
+            </div>
+            <div class="cards" id="3" category="boots">
+                <img class ="front-face" src="./css/images/boots2.jpg" alt="Boots">
+                <img class ="back-face" src="./css/images/cardback.jpg" alt="Back of the card">
+            </div>
+            <div class="cards" id="4" category="ikon">
+                <img class ="front-face" src="./css/images/ikonpass1.jpg" alt="Ikoncard">
+                <img class ="back-face" src="./css/images/cardback.jpg" alt="Back of the card">
+            </div>
+            <div class="cards" id="5" category="ikon">
+                <img class ="front-face" src="./css/images/ikonpass2.jpg" alt="Ikoncard">
+                <img class ="back-face" src="./css/images/cardback.jpg" alt="Back of the card">
+            </div>
+            <div class="cards" id="6" category="gloves">
+                <img class ="front-face" src="./css/images/gloves1.jpg" alt="Gloves">
+                <img class ="back-face" src="./css/images/cardback.jpg" alt="Back of the card">
+            </div>
+            <div class="cards" id="7" category="gloves">
+                <img class ="front-face" src="./css/images/gloves2.jpg" alt="Gloves">
+                <img class ="back-face" src="./css/images/cardback.jpg" alt="Back of the card">
+            </div>
+            <div class="cards" id="8" category="goggle">
+                <img class ="front-face" src="./css/images/goggles1.jpg" alt="Goggle">
+                <img class ="back-face" src="./css/images/cardback.jpg" alt="Back of the card">
+            </div>
+            <div class="cards" id="9" category="goggle">
+                <img class ="front-face" src="./css/images/goggles2.jpg" alt="Goggle">
+                <img class ="back-face" src="./css/images/cardback.jpg" alt="Back of the card">
+            </div>
+            <div class="cards" id="10" category="jacket">
+                <img class ="front-face" src="./css/images/jacket1.jpg" alt="Jacket">
+                <img class ="back-face" src="./css/images/cardback.jpg" alt="Back of the card">
+            </div>
+            <div class="cards" id="11" category="jacket">
+                <img class ="front-face" src="./css/images/jacket2.jpg" alt="Jacket">
+                <img class ="back-face" src="./css/images/cardback.jpg" alt="Back of the card">
+            </div>
+            <div class="cards" id="12" category="gondola">
+                <img class ="front-face" src="./css/images/gondola1.jpg" alt="Gondola">
+                <img class ="back-face" src="./css/images/cardback.jpg" alt="Back of the card">
+            </div>
+            <div class="cards" id="13" category="gondola">
+                <img class ="front-face" src="./css/images/gondola2.jpg" alt="Gondola">
+                <img class ="back-face" src="./css/images/cardback.jpg" alt="Back of the card">
+            </div>
+            <div class="cards" id="14" category="waffle">
+                <img class ="front-face" src="./css/images/waffle1.jpg" alt="Waffle">
+                <img class ="back-face" src="./css/images/cardback.jpg" alt="Back of the card">
+            </div>
+            <div class="cards" id="15" category="waffle">
+                <img class ="front-face" src="./css/images/waffle2.jpg" alt="Waffle">
+                <img class ="back-face" src="./css/images/cardback.jpg" alt="Back of the card">
+            </div>
+        </section>
 
         <button id="restart">RESTART</button>
+        <audio src="https://www.bensound.com/bensound-music/bensound-moose.mp3"></audio>
+        <button id="button"><i class="fas fa-volume-up"></i></button>
+        
+
+       
     </div>
     <script defer src="./js/app.js"></script>
 </body>
