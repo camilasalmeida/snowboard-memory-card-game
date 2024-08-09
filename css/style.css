@@ -14,7 +14,7 @@ h1 {
     font-family: 'Russo One', sans-serif;
     font-size: 50px;
     margin-bottom: 20px;
-    padding-top: 10px;
+    padding-top: 13px;
     color: white;
 }
 
@@ -117,9 +117,9 @@ audio {
     border: none;
     border: none;
     border-radius: 4px;
-    background: rgba(115, 67, 167, 0.8);
+    background: rgba(121, 79, 165, 0.8);
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-    opacity: 0.8;
+    opacity: 0.7;
     cursor: pointer;
     transition: all 0.4s ease-out;
 }

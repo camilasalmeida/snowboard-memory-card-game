@@ -167,9 +167,24 @@ cardsElement.forEach((card) => {      //for each time someone clicks on any of t
 
 restartBtn.addEventListener('click', reset);
 
+//------added-----
+button.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.volume = 0.2;
+      audio.play();
+      icon.classList.remove('fa-volume-up');
+      icon.classList.add('fa-volume-mute');
+      
+    } else {
+      audio.pause();
+      icon.classList.remove('fa-volume-mute');
+      icon.classList.add('fa-volume-up');
+    }
+    button.classList.add("fade");
+  });
 
 
-
+  
 /*
 STATE OF THE GAME: 💡💡💡
 WHAT CHANGES DO WE NEED TO KEEP TRACK OF TO KNOW THE CURRENT STATE OF THE GAME?
