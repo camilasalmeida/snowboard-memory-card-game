@@ -4,7 +4,7 @@ let flippedCards = [];
 let matchedCards = [];
 
 let timeLeft = 0;
-let timeLimit = 240; // 4 minutes in seconds
+let timeLimit = 240; 
 let timerInterval;
 
 let timerStarted = false;
@@ -16,17 +16,17 @@ const restartBtn = document.querySelector('#restart');
 const resultDisplayEl = document.querySelector('#result-display');
 const boardElement = document.querySelector('.board');
 const timerElement = document.querySelector('#timer');
-
-//-----Added
 const button = document.querySelector("#button");
 const icon = document.querySelector("#button > i");
 const audio = document.querySelector("audio");
+const snowfall = document.getElementById('snowfall');
 
 /*-------------------------------- Functions --------------------------------*/
 
 init();
 
 function init() {
+    snow();
 
     flippedCards = [];
     matchedCards = [];
@@ -173,8 +173,11 @@ button.addEventListener("click", () => {
 
 //*-------added snowflake----*
 
-document.addEventListener('DOMContentLoaded', () => {
-    const snowfall = document.getElementById('snowfall');
+snowfall.document.addEventListener('DOMContentLoaded', snow);
+
+
+function snow() {
+
     const numSnowflakes = 50; // Adjust the number of snowflakes as desired
 
     for (let i = 0; i < numSnowflakes; i++) {
@@ -189,13 +192,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         snowflake.style.animationName = 'snowfall';
         snowflake.style.animationTimingFunction = 'linear';
-
         snowfall.appendChild(snowflake);
     }
-});
+};
 
 
-  
+
 
 
 /*

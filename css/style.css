@@ -138,7 +138,6 @@ p {
     background-color: #df2459; 
 }
 
-/*---------Added-----*/
 audio {
     display: none;
   }
@@ -169,8 +168,6 @@ audio {
     left: 0;
     transform: translate(0, 0);
   }
-
-  /*-------added snow------*/
 
   @keyframes snowfall {
     0% { transform: translateY(-100px); }
