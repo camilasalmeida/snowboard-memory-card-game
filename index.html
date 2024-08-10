@@ -3,25 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="./js/app.js"></script>
     <link rel="stylesheet" href="./css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Snowboard Memory Card Game</title>
 </head>
+
 <body>
+    
     <div id="snowfall"></div>
     <div class="container">
-        <h1>Memory Card Game
-        </h1>
-        <ol id="instructions">INSTRUCTIONS:
-            <li><strong>Goal:</strong> Match all pairs before time runs out.</li>
-            <li><strong>Flip Cards:</strong> Click two cards to find a match. If they don’t match, they flip back.</li>
-            <li><strong>Win:</strong> Match all pairs within 4 minutes.</li>
-            <li><strong>Restart:</strong> Click "Restart" to play again.</li> 
-        </ol>
 
-        <p>Enjoy the ride!</p>
+        <section class="main-content">
+            <audio src="./music/mountain.mp3"></audio>
+            <button id="button"><i class="fas fa-volume-up"></i></button>
+            <h1>Memory Card Game</h1>
+        </section>
+
+        <section class="instructions">
+            <ol>INSTRUCTIONS:
+                <li><strong>Goal:</strong> Match all pairs before time runs out.</li>
+                <li><strong>Flip Cards:</strong> Click two cards to find a match. If they don’t match, they flip back.</li>
+                <li><strong>Win:</strong> Match all pairs within 4 minutes.</li>
+                <li><strong>Restart:</strong> Click "Restart" to play again.</li> 
+            </ol>
+        </section>
+
+        <p>Enjoy the ride!🏂</p>
         <div class="timer" id="timer">Timer left: 04:00</div>
         <h2 class="result-display" id="result-display">Message</h2>
 
@@ -92,13 +102,9 @@
             </div>
         </section>
 
-        <button id="restart">RESTART</button>
-        <audio src="https://www.bensound.com/bensound-music/bensound-moose.mp3"></audio>
-        <button id="button"><i class="fas fa-volume-up"></i></button>
-        
-
-       
+            <button class="restart" id="restart">RESTART</button>
+   
     </div>
-    <script defer src="./js/app.js"></script>
+
 </body>
 </html>

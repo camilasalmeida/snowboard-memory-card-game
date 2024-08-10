@@ -1,13 +1,10 @@
-/*-------------------------------- Constants --------------------------------*/
-//const cards = [];
-
 /*-------------------------------- Variables --------------------------------*/
 
 let flippedCards = [];
 let matchedCards = [];
 
 let timeLeft = 0;
-let timeLimit = 240; // 4 minutes in second
+let timeLimit = 240; // 4 minutes in seconds
 let timerInterval;
 
 let timerStarted = false;
@@ -19,7 +16,6 @@ const restartBtn = document.querySelector('#restart');
 const resultDisplayEl = document.querySelector('#result-display');
 const boardElement = document.querySelector('.board');
 const timerElement = document.querySelector('#timer');
-const categoryEl = document.querySelectorAll
 
 //-----Added
 const button = document.querySelector("#button");
@@ -27,183 +23,177 @@ const icon = document.querySelector("#button > i");
 const audio = document.querySelector("audio");
 
 /*-------------------------------- Functions --------------------------------*/
+
 init();
 
 function init() {
-    console.log('init');
-    timeLeft = timeLimit // timer has to be the opposite, cause we are counting down time, the time left.
+
+    flippedCards = [];
+    matchedCards = [];
+
+    timeLeft = 0;
+    timeLimit = 240;
+    clearInterval(timerInterval); 
+
+    timerStarted = false;
+
+    cardsElement.forEach(card => {
+        card.classList.remove('flipped');
+        card.classList.remove('matched');
+    });
+
+    timerElement.textContent = 'Timer left: 04:00';
     shuffleCards()
     resultDisplayEl.textContent = "Find all the matches!";
-    cardsElement.forEach(card => card.classList.remove('flipped', 'matched')); 
 }
 
-//**------------------------SHUFFLE CARDS FUNCTIONS----------------------**
+//**-------------------------SHUFFLE CARDS FUNCTIONS--------------------------**
 function shuffleCards() {
-    let cardsArray = Array.from(cardsElement) // Convert NodeList to an array. Array.from(cardsElement) is used to convert cardsElement into an array, This method creates a new, shallow-copied Array instance from an array-like or iterable object. //Get the cards and put them into an array.
-    //console.log(cardsArray);
-    shuffleArray(cardsArray); 
-    //console.log('Its working');
-    cardsArray.forEach(card => {
-    boardElement.appendChild(card);
-    //console.log(boardElement);
-})}
-//console.log('Shuffle card is working', shuffleCards);
-
-//  1. I put the queryselectorAll.cards into an Array.
-//   2. We called the function shuffleArray to shuffle the cards we took from the queryselector, that we put into an array.lol 
+    
+    let cardsArray = Array.from(cardsElement);
+    shuffleArray(cardsArray);
+    cardsArray.forEach(card =>
+    {
+        boardElement.appendChild(card);
+    });
+}
 
 function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) { // Go through the array from the last element to the first element
-        const j = Math.floor(Math.random() * (i + 1)); // Pick a random index from 0 to i
-        [array[i], array[j]] = [array[j], array[i]]; // // Swap the elements at index i and index j
-    }}
-//---------------------------------------------------------------------------**
+    
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
 
+//---------------------------------------------------------------------------**
 //**------------------------FLIPPED CARD FUNCTION----------------------------**
 
-function flippedCard(event){
+function flippedCard(event) {
     const clickedCard = event.target.closest('.cards');
-    if (!timerStarted){
-        console.log('000');
-    }
-    setTimerInit();
-    timerStarted = true;
 
-    if (flippedCards.length === 2 || clickedCard.classList.contains('flipped')){
-        console.log('exiting flippedCard. Conditions: ', flippedCards.length === 2, clickedCard.classList.contains('flipped'));
+    if (!timerStarted) {
+        setTimerInit();
+        timerStarted = true;
+    } if (flippedCards.length === 2 || clickedCard.classList.contains('flipped')) {
         return;
     }
 
     clickedCard.classList.add('flipped');
+
     flippedCards.push(clickedCard);
 
-    if (flippedCards.length === 2){
+    if (flippedCards.length === 2) {
         setTimeout(checkMatch, 1000);
     }
 }
 //---------------------------------------------------------------------------**
+//-------------------------CHECK MATCH FUNCTION------------------------------**
 
+function checkMatch() {
+    const [firstCard, secondCard] = flippedCards;
+
+    const firstCategory = firstCard.getAttribute('category');
+    const secondCategory = secondCard.getAttribute('category');
+
+    if (firstCategory === secondCategory) {
+        firstCard.classList.add('matched');
+        secondCard.classList.add('matched');
+        matchedCards.push(firstCard, secondCard);
+    }
+    
+    else {                                         // if the cards don't match, flip them back
+        firstCard.classList.remove('flipped');
+        secondCard.classList.remove('flipped');
+    }
+
+    flippedCards = [];
+
+    if (matchedCards.length === cardsElement.length) {
+        clearInterval(timerInterval);
+        resultDisplayEl.textContent = 'You did it!🎉 You got on the First Chair!🥇 You’ve conquered the slopes and earned your place on the lift.';
+    }
+}
+init();
 
 //**------------------------SETTING THE TIMER FUNCTIONS----------------------**
 
 function setTimerInit() {
-    timeLeft = timeLimit 
-    updateDisplay()                                   // Show the starting time
+    timeLeft = timeLimit;
+    updateDisplay();
     clearInterval(timerInterval);
-    timerInterval = setInterval(updateTime, 1000);   // Update the timer every second
+    timerInterval = setInterval(updateTime, 1000);
 }
+
 //-----------------------------
 
-// Function to update the timer each second
 function updateTime() {
-    timeLeft--;                             // 💡 reduce the time left by 1 second
-    //console.log('Hey its working, timeLeft reduced by one second.');
+    timeLeft--;                             
     if (timeLeft <= 0) {
-        clearInterval(timerInterval);      // If the timer reached 0, it will clear
+        clearInterval(timerInterval);     
         timeLeft = 0;
-        resultDisplayEl.textContent = `You lose! Do you want to try again?,Timer left: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    }}
-
+        resultDisplayEl.textContent = `Oh no!😲 Looks like you took a tumble in the snow.❄️`;
+    }
+    updateDisplay();
+}
 //----------------------------
 function updateDisplay() {
-     // Calculate the minutes and seconds from timeLeft
-    const minutes = Math.floor(timeLeft / 60);   // Calculate minutes, this is a typeof Number
-    //console.log(typeof minutes);               // number
-    const seconds = timeLeft % 60;                // calculate seconds
-    //console.log(typeof seconds);
-    // Convert minutes and seconds to two-digit strings
-    const minutesStr = String(minutes).padStart(2, '0'); // `String(minutes)` function converts this number into a string
-    const secondsStr = String(seconds).padStart(2, '0'); //Pad the string to ensure it's at least 2 characters, now it's "05"
-    //console.log(minutesStr, 'Converting into a string');
-    //console.log(secondsStr, 'And padding the string to ensure its at least 2 characters.')
-     // "5".padStart(2, '0') checks if the length of the string is less than 2. Since "5" has only 1 character, it adds a '0' at the beginning. The result is "05".
-// or timerElement.textContent = `Timer left: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    
+    const minutes = Math.floor(timeLeft / 60);   
+    const seconds = timeLeft % 60;                
+    const minutesStr = String(minutes).padStart(2, '0');
+    const secondsStr = String(seconds).padStart(2, '0');
 
-    // Create the time display string
-    const timerDisplay = 'Timer left: ' + minutesStr + ':' + secondsStr;
-    //console.log('Testing', timerDisplay);
-
-    // Update the text content of the timer element
-    timerElement.textContent = timerDisplay; // 💡💡💡DOM
-}
-//**-------------------------------------------------------------------------------**
-
-//**-----------------------------CHECKMATCH FUNCTION--------------------------------**
-function checkMatch() {
-    //console.log('Is it a match?');
-    const [firstCard, secondCard] = flippedCards;
-
-    if (firstCard.querySelector('.front-face').src === secondCard.querySelector('.front-face').src)
-    {
-        firstCard.classList.add('matched');
-        secondCard.classList.add('matched');
-        matchedCards.push(firstCard, secondCard);
-    } else
-    {
-        firstCard.classList.remove('flipped');
-        secondCard.classList.remove('flipped');
-    }
-    flippedCards = [];
-
-    if (matchedCards.length === cardsElement.length)
-    {
-        clearInterval(timerInterval);
-        resultDisplayEl.textContent = "Congratulations, you won the game! Do you want to start again?";
-    }
-}
-//**-------------------------------------------------------------------------------**
-
-
-function reset() {
-    //console.log('Reset the game!');
+    timerElement.textContent = `Timer left: ${minutesStr}:${secondsStr}`;
 }
 
-/*----------------------------- Event Listeners -----------------------------*/
+/*----------------------------- Event Listeners ---------------------------*/
 
-cardsElement.forEach((card) => {      //for each time someone clicks on any of the cards, the `flippedCard` function will be called.
+cardsElement.forEach((card) => {
     card.addEventListener('click', flippedCard);
-}
-);
+});
 
-restartBtn.addEventListener('click', reset);
+restartBtn.addEventListener('click', init);
 
-//------added-----
+
+//*------added audio btn---*
 button.addEventListener("click", () => {
     if (audio.paused) {
-      audio.volume = 0.2;
-      audio.play();
-      icon.classList.remove('fa-volume-up');
-      icon.classList.add('fa-volume-mute');
-      
+        audio.volume = 0.2;
+        audio.play();
+        icon.classList.remove('fa-volume-up');
+        icon.classList.add('fa-volume-mute');
     } else {
-      audio.pause();
-      icon.classList.remove('fa-volume-mute');
-      icon.classList.add('fa-volume-up');
+        audio.pause();
+        icon.classList.remove('fa-volume-mute');
+        icon.classList.add('fa-volume-up');
     }
     button.classList.add("fade");
-  });
+});
 
 //*-------added snowflake----*
 
-
 document.addEventListener('DOMContentLoaded', () => {
     const snowfall = document.getElementById('snowfall');
-    const numSnowflakes = 50; 
+    const numSnowflakes = 50; // Adjust the number of snowflakes as desired
 
     for (let i = 0; i < numSnowflakes; i++) {
         const snowflake = document.createElement('div');
         snowflake.classList.add('snowflake');
-        snowflake.innerText = '❄'; 
-        snowflake.style.left = Math.random() * 100 + 'vw'; 
-        snowflake.style.fontSize = Math.random() * 10 + 10 + 'px'; 
-        snowflake.style.animationDuration = Math.random() * 5 + 5 + 's'; 
-        snowflake.style.animationDelay = Math.random() * 10 + 's'; 
-        snowflake.style.transform = `translateY(${Math.random() * 100}vh)`; 
+        snowflake.innerText = '❄'; // Unicode snowflake character
+        snowflake.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
+        snowflake.style.fontSize = Math.random() * 10 + 10 + 'px'; // Random size
+        snowflake.style.animationDuration = Math.random() * 5 + 5 + 's'; // Random fall speed
+        snowflake.style.animationDelay = Math.random() * 10 + 's'; // Random start delay
+        snowflake.style.transform = `translateY(${Math.random() * 100}vh)`; // Initial vertical position
+
         snowflake.style.animationName = 'snowfall';
         snowflake.style.animationTimingFunction = 'linear';
+
         snowfall.appendChild(snowflake);
     }
 });
+
 
   
 
