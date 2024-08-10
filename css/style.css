@@ -77,20 +77,20 @@ p {
 .cards {
     width: 200px;
     height: 200px;
-    position: relative;              /* when you apply position relative to an element, it allows you to adjust its position using the top, right, bottom, and left properties, without affecting the layout of other elements.  The space where the element was originally located remains occupied, which means it doesn’t affect the position of surrounding elements. */
-    cursor: pointer;                 /* changed cursor to pointer*/
-    transform-style: preserve-3d;    /* ensure that the child elements maintain their 3D positions. This allows the 3D transformation effects, such as rotating or flipping cards, to appear as if they are happening in three-dimensional space. In your memory card game, when you flip the cards, you likely want them to rotate along an axis (like the Y-axis) to reveal the other side. If you didn’t use preserve-3d, the card might not appear to rotate correctly, and the effect would be lost.*/
-    transition: transform 0.6s;      /*transition */
+    position: relative;             
+    cursor: pointer;                 
+    transform-style: preserve-3d;    
+    transition: transform 0.6s;     
     
 }
 
 .cards:active {
-    transform: scale(.97);            /* family of transform utilities: matrix, translate, scale, rotate, skew, or some combination of them. To any transform utility to work, you need to apply the class of transform first, make sure you apply this class first, */
+    transform: scale(.97);           
     transition: transform .2s;
     }
 
  .cards.flipped {                    
-     transform: rotateY(180deg);      /* transform: rotate: rotate(), rotateX(), rotateY(), rotateZ(), rotate3d(). */
+     transform: rotateY(180deg);    
     }
 
 .front-face, .back-face {
@@ -98,10 +98,10 @@ p {
     height: 200px;
     position: absolute;
     border: 2px solid rgba(247, 244, 246, 0.941);
-    backface-visibility: hidden;       /* back visibility property controls the reverse sight of just active. Keeping it visible will conflict with the 3d layers. */
+    backface-visibility: hidden;       
 }
 
-.front-face {                           /*hide front face*/
+.front-face {                           
     transform: rotateY(180deg);
 }
 
