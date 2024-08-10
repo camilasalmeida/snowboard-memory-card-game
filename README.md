@@ -6,7 +6,7 @@ As a lover of sports in general and **Snowboarding** in particular, I wanted to 
 
 #### My Goal 🎯
 
-**My goal with this project was to give you, the player, a little taste of that magical mountain experience every time you play.** Feel the sensation of being on top of a mountain, appreciating a splendid view full of trees covered in ice, and experiencing the snow gently falling, as if it's right on your face. 
+**My goal with this project was to give you, a little taste of that magical mountain experience every time you play.** Feel the sensation of being on top of a mountain, appreciating a splendid view full of trees covered in ice, and experiencing the snow gently falling, as if it's right on your face. 
 
 **By adding some relaxing music in the background, I wanted to ensure your time playing this game is as enjoyable and immersive as possible.** *I hope it makes you want to play more and more, striving to beat your best time with each attempt.* It’s designed to enhance your memorization skills, encourage you to challenge yourself, and push beyond your best. 
 
