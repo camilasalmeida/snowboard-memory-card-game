@@ -16,9 +16,7 @@ const icon = document.querySelector("#button > i");
 const audio = document.querySelector("audio");
 const snowfall = document.getElementById('snowfall');
 
-
 init();
-
 function init() {
     snow();
 
@@ -100,11 +98,29 @@ function checkMatch() {
 
     if (matchedCards.length === cardsElement.length) {
         clearInterval(timerInterval);
-        resultDisplayEl.textContent = 'You did it!🎉 You got on the First Chair!🥇';
-    }
+        //render()
+        //resultDisplayEl.textContent = 'You did it!🎉 You got on the First Chair!🥇';
+        render('win');
+    } 
+    
+    //else if (timeLeft === 0) { // Ensure `timeRemaining` is updated elsewhere
+      //  clearInterval(timerInterval);
+       // render('lose');
+   // }
 }
-init();
 
+
+//init();
+
+
+function render(result) {
+    if (result === 'win') {
+        resultDisplayEl.textContent = 'You did it!🎉 You got on the First Chair!🥇';
+    } else if (result === 'lose') {
+        resultDisplayEl.textContent = `Oh no!😱 Time’s up! Ready to hop back on and give it another go?`;
+    }
+    //init();
+}
 
 function setTimerInit() {
     timeLeft = timeLimit;
@@ -119,7 +135,8 @@ function updateTime() {
     if (timeLeft <= 0) {
         clearInterval(timerInterval);     
         timeLeft = 0;
-        resultDisplayEl.textContent = `Oh no!😲 Looks like you took a tumble in the snow.❄️`;
+        render('lose');
+        //resultDisplayEl.textContent = `Oh no!😲 Looks like you took a tumble in the snow.❄️`;
     }
     updateDisplay();
 }
@@ -134,7 +151,6 @@ function updateDisplay() {
 
     timerElement.textContent = `Timer left: ${minutesStr}:${secondsStr}`;
 }
-
 
 function snow() {
 
