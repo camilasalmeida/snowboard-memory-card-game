@@ -1,8 +1,7 @@
-
 let flippedCards = [];
 let matchedCards = [];
 let timeLeft = 0;
-let timeLimit = 240; 
+let timeLimit = 240;
 let timerInterval;
 let timerStarted = false;
 
@@ -16,26 +15,19 @@ const button = document.querySelector("#button");
 const icon = document.querySelector("#button > i");
 const audio = document.querySelector("audio");
 
-button.addEventListener("click", () =>
-{
-    if (audio.paused)
-    {
+button.addEventListener("click", () => {
+    if (audio.paused) {
         audio.volume = 0.2;
         audio.play();
         icon.classList.remove('fa-volume-up');
         icon.classList.add('fa-volume-mute');
-    }
-
-    else
-    {
+    } else {
         audio.pause();
         icon.classList.remove('fa-volume-mute');
         icon.classList.add('fa-volume-up');
     }
     button.classList.add("fade");
 });
-
-
 
 init();
 function init() {
@@ -44,10 +36,8 @@ function init() {
     flippedCards = [];
     matchedCards = [];
 
-    timeLeft = 0;
-    timeLimit = 240;
+    timeLeft = timeLimit;
     clearInterval(timerInterval); 
-
     timerStarted = false;
 
     cardsElement.forEach(card => {
@@ -56,23 +46,19 @@ function init() {
     });
 
     timerElement.textContent = 'Timer left: 04:00';
-    shuffleCards()
+    shuffleCards();
     resultDisplayEl.textContent = "Find all the matches!";
 }
 
-
 function shuffleCards() {
-    
     let cardsArray = Array.from(cardsElement);
     shuffleArray(cardsArray);
-    cardsArray.forEach(card =>
-    {
+    cardsArray.forEach(card => {
         boardElement.appendChild(card);
     });
 }
 
 function shuffleArray(array) {
-    
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
@@ -84,13 +70,12 @@ function flippedCard(event) {
 
     if (!timerStarted) {
         setTimerInit();
-        timerStarted = true;
+        timerStarted = true; 
     } if (flippedCards.length === 2 || clickedCard.classList.contains('flipped')) {
         return;
     }
 
     clickedCard.classList.add('flipped');
-
     flippedCards.push(clickedCard);
 
     if (flippedCards.length === 2) {
@@ -100,7 +85,6 @@ function flippedCard(event) {
 
 function checkMatch() {
     const [firstCard, secondCard] = flippedCards;
-
     const firstCategory = firstCard.getAttribute('category');
     const secondCategory = secondCard.getAttribute('category');
 
@@ -108,9 +92,7 @@ function checkMatch() {
         firstCard.classList.add('matched');
         secondCard.classList.add('matched');
         matchedCards.push(firstCard, secondCard);
-    }
-    
-    else {                                         
+    } else {                                         
         firstCard.classList.remove('flipped');
         secondCard.classList.remove('flipped');
     }
@@ -120,16 +102,14 @@ function checkMatch() {
     if (matchedCards.length === cardsElement.length) {
         clearInterval(timerInterval);
         render('win');
-    } 
+    }
 }
 
 function render(result) {
     if (result === 'win') {
         resultDisplayEl.textContent = 'You did it!🎉 You got on the First Chair!🥇';
     } else if (result === 'lose') {
-        resultDisplayEl.textContent = `Oh no!😱Time's outt! You can try it again!☺️`;
-        init();
-
+        resultDisplayEl.textContent = `Oh noo!😱Time's up! Ready to hop back on and give it another go?`;
     }
 }
 
@@ -141,20 +121,18 @@ function setTimerInit() {
 }
 
 function updateTime() {
-    timeLeft--;                             
+    timeLeft--;
     if (timeLeft <= 0) {
-        clearInterval(timerInterval);     
+        clearInterval(timerInterval);
         timeLeft = 0;
         render('lose');
     }
     updateDisplay();
 }
 
-
 function updateDisplay() {
-    
-    const minutes = Math.floor(timeLeft / 60);   
-    const seconds = timeLeft % 60;                
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
     const minutesStr = String(minutes).padStart(2, '0');
     const secondsStr = String(seconds).padStart(2, '0');
 
@@ -162,24 +140,22 @@ function updateDisplay() {
 }
 
 function snow() {
-
-    const numSnowflakes = 40; 
+    const numSnowflakes = 40;
 
     for (let i = 0; i < numSnowflakes; i++) {
         const snowflake = document.createElement('div');
         snowflake.classList.add('snowflake');
-        snowflake.innerText = '❄'; 
-        snowflake.style.left = Math.random() * 100 + 'vw'; 
-        snowflake.style.fontSize = Math.random() * 10 + 10 + 'px'; 
+        snowflake.innerText = '❄';
+        snowflake.style.left = Math.random() * 100 + 'vw';
+        snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
         snowflake.style.animationDuration = Math.random() * 5 + 5 + 's';
-        snowflake.style.animationDelay = Math.random() * 10 + 's'; 
-        snowflake.style.transform = `translateY(${Math.random() * 100}vh)`; 
+        snowflake.style.animationDelay = Math.random() * 10 + 's';
+        snowflake.style.transform = `translateY(${Math.random() * 100}vh)`;
         snowflake.style.animationName = 'snowfall';
         snowflake.style.animationTimingFunction = 'linear';
-        snowfall.appendChild(snowflake);
+        snowfallEl.appendChild(snowflake);
     }
-};
-
+}
 
 cardsElement.forEach((card) => {
     card.addEventListener('click', flippedCard);
@@ -188,6 +164,3 @@ cardsElement.forEach((card) => {
 restartBtn.addEventListener('click', init);
 
 document.addEventListener('DOMContentLoaded', snow);
-
-
-
