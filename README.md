@@ -24,7 +24,7 @@ This project represents a crucial milestone in my growth as a developer, providi
 
 Don’t hesitate to reach out if you have any questions. 💬
 
-*I hope you enjoy the ride! See you around!* 🏂
+*I hope you enjoy the game! See you around!* 🏂
 
 **Cya!** 🫶
 
