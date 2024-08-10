@@ -11,10 +11,31 @@ const restartBtn = document.querySelector('#restart');
 const resultDisplayEl = document.querySelector('#result-display');
 const boardElement = document.querySelector('.board');
 const timerElement = document.querySelector('#timer');
+const snowfallEl = document.getElementById('snowfall');
 const button = document.querySelector("#button");
 const icon = document.querySelector("#button > i");
 const audio = document.querySelector("audio");
-const snowfall = document.getElementById('snowfall');
+
+button.addEventListener("click", () =>
+{
+    if (audio.paused)
+    {
+        audio.volume = 0.2;
+        audio.play();
+        icon.classList.remove('fa-volume-up');
+        icon.classList.add('fa-volume-mute');
+    }
+
+    else
+    {
+        audio.pause();
+        icon.classList.remove('fa-volume-mute');
+        icon.classList.add('fa-volume-up');
+    }
+    button.classList.add("fade");
+});
+
+
 
 init();
 function init() {
@@ -98,28 +119,18 @@ function checkMatch() {
 
     if (matchedCards.length === cardsElement.length) {
         clearInterval(timerInterval);
-        //render()
-        //resultDisplayEl.textContent = 'You did it!🎉 You got on the First Chair!🥇';
         render('win');
     } 
-    
-    //else if (timeLeft === 0) { // Ensure `timeRemaining` is updated elsewhere
-      //  clearInterval(timerInterval);
-       // render('lose');
-   // }
 }
-
-
-//init();
-
 
 function render(result) {
     if (result === 'win') {
         resultDisplayEl.textContent = 'You did it!🎉 You got on the First Chair!🥇';
     } else if (result === 'lose') {
-        resultDisplayEl.textContent = `Oh no!😱 Time’s up! Ready to hop back on and give it another go?`;
+        resultDisplayEl.textContent = `Oh no!😱Time's outt! You can try it again!☺️`;
+        init();
+
     }
-    //init();
 }
 
 function setTimerInit() {
@@ -129,14 +140,12 @@ function setTimerInit() {
     timerInterval = setInterval(updateTime, 1000);
 }
 
-
 function updateTime() {
     timeLeft--;                             
     if (timeLeft <= 0) {
         clearInterval(timerInterval);     
         timeLeft = 0;
         render('lose');
-        //resultDisplayEl.textContent = `Oh no!😲 Looks like you took a tumble in the snow.❄️`;
     }
     updateDisplay();
 }
@@ -154,7 +163,7 @@ function updateDisplay() {
 
 function snow() {
 
-    const numSnowflakes = 42; 
+    const numSnowflakes = 40; 
 
     for (let i = 0; i < numSnowflakes; i++) {
         const snowflake = document.createElement('div');
@@ -178,18 +187,7 @@ cardsElement.forEach((card) => {
 
 restartBtn.addEventListener('click', init);
 
-snowfall.document.addEventListener('DOMContentLoaded', snow);
+document.addEventListener('DOMContentLoaded', snow);
 
-button.addEventListener("click", () => {
-    if (audio.paused) {
-        audio.volume = 0.2;
-        audio.play();
-        icon.classList.remove('fa-volume-up');
-        icon.classList.add('fa-volume-mute');
-    } else {
-        audio.pause();
-        icon.classList.remove('fa-volume-mute');
-        icon.classList.add('fa-volume-up');
-    }
-    button.classList.add("fade");
-});
+
+
