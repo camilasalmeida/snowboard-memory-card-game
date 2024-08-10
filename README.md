@@ -20,7 +20,7 @@ As a beginner, this project was a huge challenge for me. I was very particular a
 
 This project represents a crucial milestone in my growth as a developer, providing an opportunity to improve my skills, refine my problem-solving abilities, and recognize my progress through practical experience. 
 
-**This is just the beginning of my journey, so stay tuned for updates and future enhancements!** 🚀🔧
+**This is just the beginning of my journey, so stay tuned for updates and future enhancements!** 🚀
 
 Don’t hesitate to reach out if you have any questions. 💬
 
