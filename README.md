@@ -79,7 +79,9 @@ This project utilizes resources from:
 
 ## Project Link
 
-Check out the live game [here](https://camilasalmeida.github.io/snowboard-memory-card-game/).
+Check out the live game: [here](https://camilasalmeida.github.io/snowboard-memory-card-game/).
+
+Link to my planning materials: [here](https://github.com/camilasalmeida/snowboard-memory-card-game/blob/main/planning-materials.md).
 
 Feel free to explore the code and contribute to the project!
 
