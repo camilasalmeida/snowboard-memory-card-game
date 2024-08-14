@@ -1,19 +1,26 @@
-let flippedCards = [];
-let matchedCards = [];
-let timeLeft = 0;
-let timeLimit = 240;
-let timerInterval;
-let timerStarted = false;
+const totalCards = 16;
 
-const cardsElement = document.querySelectorAll('.cards');
-const restartBtn = document.querySelector('#restart');
-const resultDisplayEl = document.querySelector('#result-display');
-const boardElement = document.querySelector('.board');
-const timerElement = document.querySelector('#timer');
+let hasFlippedCard = false;
+let firstCard;
+let secondCard;
+let timer;
+let timeLeft = 240;
+let hasTimerStarted = false; 
+let matchedCards = [];
+let boardLocked = false;
+
+const cardsEl = document.querySelectorAll('.memory-card');
+const resultDisplayEl = document.querySelector('.result-display');
+const timerEl = document.querySelector('.timer');
+const restartBtnEl = document.querySelector('.restart');
+console.log(restartBtnEl);
+
 const snowfallEl = document.getElementById('snowfall');
 const button = document.querySelector("#button");
 const icon = document.querySelector("#button > i");
 const audio = document.querySelector("audio");
+
+
 
 button.addEventListener("click", () => {
     if (audio.paused) {
@@ -29,114 +36,141 @@ button.addEventListener("click", () => {
     button.classList.add("fade");
 });
 
+
 init();
 function init() {
+    console.log('Init is here!');
+    resetTimer();
     snow();
-
-    flippedCards = [];
-    matchedCards = [];
-
-    timeLeft = timeLimit;
-    clearInterval(timerInterval); 
-    timerStarted = false;
-
-    cardsElement.forEach(card => {
-        card.classList.remove('flipped');
-        card.classList.remove('matched');
-    });
-
-    timerElement.textContent = 'Timer left: 04:00';
     shuffleCards();
-    resultDisplayEl.textContent = "Find all the matches!";
+    matchedCards = [];
+cardsEl.forEach(card => card.classList.remove('flip'));
+cardsEl.forEach(card => card.addEventListener('click', flipCard)); //putting back the event listener
+resultDisplayEl.textContent = `Find all the matches!`;
+hasTimerStarted = false;
+matchedCards = [];
+    firstCard = null;
+    secondCard = null;
 }
 
 function shuffleCards() {
-    let cardsArray = Array.from(cardsElement);
-    shuffleArray(cardsArray);
-    cardsArray.forEach(card => {
-        boardElement.appendChild(card);
-    });
-}
-
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
+    const cardsArray = Array.from(cardsEl);
+    for (let i = cardsArray.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+        [cardsArray[i].style.order, cardsArray[j].style.order] = [j, i];
     }
 }
 
-function flippedCard(event) {
-    const clickedCard = event.target.closest('.cards');
 
-    if (!timerStarted) {
-        setTimerInit();
-        timerStarted = true; 
-    } if (flippedCards.length === 2 || clickedCard.classList.contains('flipped')) {
-        return;
+function flipCard() {
+    //console.log('flipCard is working');
+    if (boardLocked) return;
+    this.classList.add('flip');
+    if (!hasFlippedCard) {
+        hasFlippedCard = true;
+        firstCard = this;
+        if (!hasTimerStarted) {    // Start timer on the first click
+            startTimer();
+            hasTimerStarted = true;
+        }
+        
+    } else {
+        hasFlippedCard = false;
+        secondCard = this;
+        checkForMatch();
+    }}
+
+function checkForMatch() {
+    //console.log('check for match');
+    if (firstCard.dataset.category === secondCard.dataset.category) {
+        // yay its a match
+    console.log('its a match');
+    disableCards();
+    matchedCards.push(firstCard, secondCard);
+    render();
+} else {
+        //its not a match
+        console.log('its not a match');
+        unflipCards();
+}}
+
+function unflipCards() {
+        boardLocked = true;
+        setTimeout(() => {
+        firstCard.classList.remove('flip');
+        secondCard.classList.remove('flip');
+        resetBoardState();
+    }, 1000);
     }
 
-    clickedCard.classList.add('flipped');
-    flippedCards.push(clickedCard);
-
-    if (flippedCards.length === 2) {
-        setTimeout(checkMatch, 1000);
+    function resetBoardState() {
+        [hasFlippedCard, boardLocked] = [false, false];
+        [firstCard, secondCard] = [null, null];
     }
+
+
+// **-------------------------------------------**
+
+// start the timer function 
+function startTimer() {
+    resetTimer();   // Reset timer on game start
+    timer = setInterval(() => {
+        timeLeft--;
+        updateTimer();
+
+        if (timeLeft <= 0) {
+        clearInterval(timer);
+        render();
+        }
+    }, 1000);  // Update every second
 }
 
-function checkMatch() {
-    const [firstCard, secondCard] = flippedCards;
-    const firstCategory = firstCard.getAttribute('category');
-    const secondCategory = secondCard.getAttribute('category');
-
-    if (firstCategory === secondCategory) {
-        firstCard.classList.add('matched');
-        secondCard.classList.add('matched');
-        matchedCards.push(firstCard, secondCard);
-    } else {                                         
-        firstCard.classList.remove('flipped');
-        secondCard.classList.remove('flipped');
-    }
-
-    flippedCards = [];
-
-    if (matchedCards.length === cardsElement.length) {
-        clearInterval(timerInterval);
-        render('win');
-    }
-}
-
-function render(result) {
-    if (result === 'win') {
-        resultDisplayEl.textContent = 'You did it!🎉 You got on the First Chair!🥇';
-    } else if (result === 'lose') {
-        resultDisplayEl.textContent = `Oh noo!😱Time's up! Ready to hop back on and give it another go?`;
-    }
-}
-
-function setTimerInit() {
-    timeLeft = timeLimit;
-    updateDisplay();
-    clearInterval(timerInterval);
-    timerInterval = setInterval(updateTime, 1000);
-}
-
-function updateTime() {
-    timeLeft--;
-    if (timeLeft <= 0) {
-        clearInterval(timerInterval);
-        timeLeft = 0;
-        render('lose');
-    }
-    updateDisplay();
-}
-
-function updateDisplay() {
+//update timer function
+function updateTimer() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
     const minutesStr = String(minutes).padStart(2, '0');
     const secondsStr = String(seconds).padStart(2, '0');
+    timerEl.textContent = `Timer left: ${minutesStr}:${secondsStr}`;
+}
 
-    timerElement.textContent = `Timer left: ${minutesStr}:${secondsStr}`;
+// reset timer function
+function resetTimer() {
+    clearInterval(timer);
+    timeLeft = 240;
+    updateTimer();
+    hasTimerStarted = false; // Reset timerStarted flag
+}
+
+//add the render function
+function render() {
+    console.log('Matched cards');
+    if (matchedCards.length === totalCards){
+        resultDisplayEl.textContent = 'You did it!🎉 You got on the First Chair!🥇';
+        clearInterval(timer);         // Stop the timer when the player wins
+        disableUnmatchedCards();
+    } else if (timeLeft <= 0) {
+        // Time is up
+        resultDisplayEl.textContent = `Oh noo!😱Time's up! It's ok, you can try it again!`;
+        clearInterval(timer); // Stop the timer when time runs out
+        disableUnmatchedCards();
+        
+    }
+}
+
+function disableCards() {
+    firstCard.removeEventListener('click', flipCard);
+    secondCard.removeEventListener('click', flipCard);
+    resetBoardState();
+}
+
+
+function disableUnmatchedCards() {
+    cardsEl.forEach(card => {
+        if (!matchedCards.includes(card)) {  // Check if the card is not in the matchedCards array
+            card.removeEventListener('click', flipCard); // Remove click event listeners only from unmatched cards
+        }
+    });
 }
 
 function snow() {
@@ -157,10 +191,10 @@ function snow() {
     }
 }
 
-cardsElement.forEach((card) => {
-    card.addEventListener('click', flippedCard);
+cardsEl.forEach((card) => {
+    card.addEventListener('click', flipCard);
 });
 
-restartBtn.addEventListener('click', init);
+restartBtnEl.addEventListener('click', init);
 
 document.addEventListener('DOMContentLoaded', snow);
