@@ -13,13 +13,10 @@ const cardsEl = document.querySelectorAll('.memory-card');
 const resultDisplayEl = document.querySelector('.result-display');
 const timerEl = document.querySelector('.timer');
 const restartBtnEl = document.querySelector('.restart');
-console.log(restartBtnEl);
-
 const snowfallEl = document.getElementById('snowfall');
 const button = document.querySelector("#button");
 const icon = document.querySelector("#button > i");
 const audio = document.querySelector("audio");
-
 
 
 button.addEventListener("click", () => {
@@ -39,13 +36,12 @@ button.addEventListener("click", () => {
 
 init();
 function init() {
-    console.log('Init is here!');
     resetTimer();
     snow();
     shuffleCards();
     matchedCards = [];
 cardsEl.forEach(card => card.classList.remove('flip'));
-cardsEl.forEach(card => card.addEventListener('click', flipCard)); //putting back the event listener
+cardsEl.forEach(card => card.addEventListener('click', flipCard));
 resultDisplayEl.textContent = `Find all the matches!`;
 hasTimerStarted = false;
 matchedCards = [];
@@ -63,13 +59,12 @@ function shuffleCards() {
 
 
 function flipCard() {
-    //console.log('flipCard is working');
     if (boardLocked) return;
     this.classList.add('flip');
     if (!hasFlippedCard) {
         hasFlippedCard = true;
         firstCard = this;
-        if (!hasTimerStarted) {    // Start timer on the first click
+        if (!hasTimerStarted) {    
             startTimer();
             hasTimerStarted = true;
         }
@@ -81,16 +76,11 @@ function flipCard() {
     }}
 
 function checkForMatch() {
-    //console.log('check for match');
     if (firstCard.dataset.category === secondCard.dataset.category) {
-        // yay its a match
-    console.log('its a match');
     disableCards();
     matchedCards.push(firstCard, secondCard);
     render();
 } else {
-        //its not a match
-        console.log('its not a match');
         unflipCards();
 }}
 
@@ -108,12 +98,8 @@ function unflipCards() {
         [firstCard, secondCard] = [null, null];
     }
 
-
-// **-------------------------------------------**
-
-// start the timer function 
 function startTimer() {
-    resetTimer();   // Reset timer on game start
+    resetTimer();   
     timer = setInterval(() => {
         timeLeft--;
         updateTimer();
@@ -122,10 +108,9 @@ function startTimer() {
         clearInterval(timer);
         render();
         }
-    }, 1000);  // Update every second
+    }, 1000);  
 }
 
-//update timer function
 function updateTimer() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
@@ -134,25 +119,21 @@ function updateTimer() {
     timerEl.textContent = `Timer left: ${minutesStr}:${secondsStr}`;
 }
 
-// reset timer function
 function resetTimer() {
     clearInterval(timer);
     timeLeft = 240;
     updateTimer();
-    hasTimerStarted = false; // Reset timerStarted flag
+    hasTimerStarted = false; 
 }
 
-//add the render function
 function render() {
-    console.log('Matched cards');
     if (matchedCards.length === totalCards){
         resultDisplayEl.textContent = 'You did it!🎉 You got on the First Chair!🥇';
-        clearInterval(timer);         // Stop the timer when the player wins
+        clearInterval(timer);         
         disableUnmatchedCards();
     } else if (timeLeft <= 0) {
-        // Time is up
         resultDisplayEl.textContent = `Oh noo!😱Time's up! It's ok, you can try it again!`;
-        clearInterval(timer); // Stop the timer when time runs out
+        clearInterval(timer); 
         disableUnmatchedCards();
         
     }
@@ -164,11 +145,10 @@ function disableCards() {
     resetBoardState();
 }
 
-
 function disableUnmatchedCards() {
     cardsEl.forEach(card => {
-        if (!matchedCards.includes(card)) {  // Check if the card is not in the matchedCards array
-            card.removeEventListener('click', flipCard); // Remove click event listeners only from unmatched cards
+        if (!matchedCards.includes(card)) {  
+            card.removeEventListener('click', flipCard); 
         }
     });
 }
